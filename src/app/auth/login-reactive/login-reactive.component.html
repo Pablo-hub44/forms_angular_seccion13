@@ -1,0 +1,33 @@
+
+<!-- cmo le asignamos en el ts-->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+  
+    <div class="control-row">
+      <div class="control no-margin">
+        <label for="email">Email</label>
+        <input id="email" type="email"  required="" [formControl]="form.controls.email"/>
+        <!-- el form es el que creamos en ts el form group-->
+    </div>
+  
+      <div class="control no-margin">
+        <label for="password">Password</label>
+        <input id="password" type="password"  name="password" formControlName="password" minlength="6" pattern='^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$'  required=""/>
+        <!-- otra forma es con formcontrolname en donde asignamos la propiedad puesta en nuestro ts-->
+      </div>
+  
+      <button class="button">Login</button>
+  
+      
+    </div>
+
+    <!-- validamos -->
+    @if (form.controls.email.touched && form.controls.email.dirty && form.controls.email.invalid) {
+        <p class="control-error">Ingrese un email valido</p>
+    }
+
+    @if (passwordIsInvalid) {
+        <p class="control-error">Ingrese una contraseña valido min 6 caracteres y debe contener ?</p>
+    }
+  </form>
+  
