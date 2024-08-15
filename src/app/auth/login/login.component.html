@@ -1,17 +1,35 @@
-<form>
+<!-- gracias a este ngForm en este tipo objet se iran almacenando, los atributos de los ngmodel-->
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <h2>Login</h2>
 
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <input id="email" type="email" />
+      <input id="email" type="email" #email="ngModel"  name="email"[(ngModel)]="loginData.email" required=""/>
+      <!-- #name="ngModel" [(ngModel)]="user.email" (se necesita tener un objeto en el ts) con esto recepcionamos los datos, le damos un #nombre apuntando al ngmodel, y lo metemos al ngModel de nuestro objeto(en su propiedad) q se va a modificar -->
+      <!--en los inputs, otra forma mas facil formControlName="name" pa recepcionar en el typeScript-->
     </div>
 
     <div class="control no-margin">
       <label for="password">Password</label>
-      <input id="password" type="password" />
+      <input id="password" type="password" #password="ngModel" name="password"[(ngModel)]="loginData.password" minlength="6" pattern='^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$'  required=""/>
     </div>
 
     <button class="button">Login</button>
+
+    <!--validamos los datos del form y error muestra esto podemos acceder al dato por medio de su variable de platilla
+    o por la variable de platilla del formulario-->
+    @if (email.touched && email.dirty && form.form.controls['email'].touched && form.form.invalid) {
+      <p class="control-error">
+      Email invalido, favor de validar
+    </p>
+    }
+
+    @if (password.touched && password.dirty && form.form.controls['password'].touched && form.form.invalid) {
+      <p class="control-error">
+      Contraseña invalida - debe ser minimo de 6 caractere y tener al menos un caracter especial
+    </p>
+    }
+    
   </div>
 </form>
