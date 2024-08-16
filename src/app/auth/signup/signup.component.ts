@@ -59,7 +59,8 @@ export class SignupComponent {
         validators: [Validators.minLength(6), Validators.required]
       }),
     },{//el tercer parametro es para poner objeto de configuracion, o agregas validaciones mas avanzadas
-      validators:[equalValue('password','confirmPassword')]//equalValue
+      validators:[equalValue('password','confirmPassword')]//antes equalValue
+      //? llamamos a nuestro metodo q validara si son iguales, pasandoles sus names
     }),
     
     firstName: new FormControl('', { validators: [Validators.required] }),
